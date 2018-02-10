@@ -8,9 +8,10 @@ public class CameraController : MonoBehaviour {
     private GameObject pcObj;
     [SerializeField]
     private float camDistance = 5f;
+    [SerializeField]
+    private float camHeight = 2.5f;
 
-    private float currentX = 0.0f;
-    private float currentY = 0.0f;
+    private bool lookBackwards = false;
 
    
     void Start () {
@@ -22,18 +23,29 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
     private void Update ()
     {   
-        //take in axis info from our mouse movement
-        currentX += Input.GetAxis("Mouse X");
-        currentY -= Input.GetAxis("Mouse Y");
     }
 
+    private void LateUpdate()
+    {
+        //Determine if looking backwards if left shift is held down
+        lookBackwards = Input.GetKey(KeyCode.LeftShift);
+    }
 
-	private void FixedUpdate () {
+    private void FixedUpdate () {
 
         //set our z distance away from the PC
-        Vector3 dir = new Vector3(0, 0, -camDistance);
+        float zDist = -camDistance;
+
+        //Reverse z distance if looking backwards
+        if(lookBackwards)
+        {
+            zDist *= -1;
+        }
+
+        //set new z distance and camera heigh
+        Vector3 dir = new Vector3(0, camHeight, zDist);
         //set the rotation of the camera
-        Quaternion rotation = Quaternion.Euler(currentY, currentX, 0);
+        Quaternion rotation = pcObj.GetComponent<Rigidbody>().transform.rotation;
        
         //lerp camera positon to new positoin                 -define new position as pc positon, offset by the rotation, 
                                                                                 //Move Backwards 
