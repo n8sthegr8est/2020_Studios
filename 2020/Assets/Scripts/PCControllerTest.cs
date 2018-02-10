@@ -19,6 +19,8 @@ public class PCControllerTest : MonoBehaviour {
 	private float walkableAngle = 60f;
     private Vector3 currentFacing;
 
+	public Animator anim;
+
 
 	private GameObject currentGround;
     // Use this for initialization
@@ -57,19 +59,24 @@ public class PCControllerTest : MonoBehaviour {
         {
             currentFacing -= rightfacing;
         }
+
         //ground functions
 		if(currentGround != null)
         {
-           
+			
 
-            if ((Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.A)) || (Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.D)))
+			if ((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.S)) || (Input.GetKeyDown(KeyCode.D)))
             {
                 pcRigidbody.velocity = transform.forward * groundSpeed + new Vector3(0, pcRigidbody.velocity.y, 0);
+
             }
 
             if ((Input.GetKey(KeyCode.Space)))
             {
+				
                 pcRigidbody.velocity = new Vector3(pcRigidbody.velocity.x, jumpForce, pcRigidbody.velocity.z);
+
+				anim.SetTrigger("Fly");
             }
 
            
@@ -116,6 +123,7 @@ public class PCControllerTest : MonoBehaviour {
 		
 		if (hit.collider.gameObject == currentGround) {
 			currentGround = null;
+
 		}
     }
 
