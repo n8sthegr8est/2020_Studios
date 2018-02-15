@@ -19,6 +19,8 @@ public class PCControllerTest : MonoBehaviour {
 	private float walkableAngle = 60f;
     private Vector3 currentFacing;
 
+	private bool isFlying = false;
+
 	public Animator anim;
 
 
@@ -60,14 +62,27 @@ public class PCControllerTest : MonoBehaviour {
             currentFacing -= rightfacing;
         }
 
+	
+
         //ground functions
 		if(currentGround != null)
-        {
-			
+		{	
+			anim.SetBool ("Fly", false);
 
-			if ((Input.GetKeyDown(KeyCode.W)) || (Input.GetKeyDown(KeyCode.A)) || (Input.GetKeyDown(KeyCode.S)) || (Input.GetKeyDown(KeyCode.D)))
+
+
+
+			if (pcRigidbody.velocity.x > 0.0f||pcRigidbody.velocity.z > 0.0f) {
+				anim.SetBool ("Walk", true);
+			} 
+
+			else {
+				anim.SetBool ("Walk", false);
+			}
+			if ((Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.A)) || (Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.D)))
             {
                 pcRigidbody.velocity = transform.forward * groundSpeed + new Vector3(0, pcRigidbody.velocity.y, 0);
+
 
             }
 
@@ -76,14 +91,16 @@ public class PCControllerTest : MonoBehaviour {
 				
                 pcRigidbody.velocity = new Vector3(pcRigidbody.velocity.x, jumpForce, pcRigidbody.velocity.z);
 
-				anim.SetTrigger("Fly");
+
             }
 
            
 			RotateDo ();
         }
         else //if not grounded
-        {
+		{
+			anim.SetBool ("Walk", false);
+			anim.SetBool ("Fly", true);
 			if ((Input.GetKey(KeyCode.W)) || (Input.GetKey(KeyCode.A)) || (Input.GetKey(KeyCode.S)) || (Input.GetKey(KeyCode.D)))
 			{
 				pcRigidbody.velocity = AirVelocityAccelerate(pcRigidbody, airMaxAccel, airMaxSpeed);
