@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour {
 
+    [SerializeField]
+    private bool cycleWaypoints = true; // defaults to true. set to false if non-looping track, add script to check which track it is
 	// put the points from unity interface
 	public Transform[] wayPointList;
 
@@ -37,7 +39,11 @@ public class Mover : MonoBehaviour {
 
 		if(transform.position == targetWayPoint.position)
 		{
-            if(currentWayPoint + 1 != wayPointList.Length)
+            if(currentWayPoint + 1 == wayPointList.Length && !cycleWaypoints)
+            {
+                currentWayPoint = currentWayPoint;
+            }
+            else if(currentWayPoint + 1 != wayPointList.Length)
             {
                 currentWayPoint++;
                 //targetWayPoint = wayPointList[currentWayPoint];
