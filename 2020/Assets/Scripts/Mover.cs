@@ -37,7 +37,17 @@ public class Mover : MonoBehaviour {
 
 		if(transform.position == targetWayPoint.position)
 		{
-			currentWayPoint ++ ;
+            if(currentWayPoint + 1 != wayPointList.Length)
+            {
+                currentWayPoint++;
+                //targetWayPoint = wayPointList[currentWayPoint];
+            }
+            else
+            {
+                currentWayPoint = 0;
+                //targetWayPoint = wayPointList[]
+            }
+			//currentWayPoint ++ ;
 			targetWayPoint = wayPointList[currentWayPoint];
 		}
 	} 
