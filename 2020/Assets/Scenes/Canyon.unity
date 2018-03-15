@@ -6160,7 +6160,7 @@ GameObject:
   - component: {fileID: 1208400807}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7670,7 +7670,7 @@ GameObject:
   - component: {fileID: 1432474288}
   m_Layer: 0
   m_Name: Track
-  m_TagString: Untagged
+  m_TagString: Track
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9562,8 +9562,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pcObj: {fileID: 97369741}
-  camDistance: 20
-  camHeight: 2.5
+  camDistance: 10
+  camHeight: 4
 --- !u!1 &1837775919
 GameObject:
   m_ObjectHideFlags: 0
